@@ -18,7 +18,7 @@ public class VulController {
     @ResponseBody
     public Object hello(User user){
         log.info("user:{}",user);
-        return "ok\n"+user;
+        return "ok<br>"+user;
     }
 
 
